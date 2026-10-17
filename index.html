@@ -1,162 +1,261 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#101014">
-<title>SAYRA BUSINESS HUB</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0e">
+<meta name="description" content="SAYRA BRAND — a premium daily business diary and price calculator.">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>SAYRA BRAND</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0c0c10;color:#f5f2eb;font-family:Arial,sans-serif}
-header{padding:24px 16px;background:linear-gradient(135deg,#171717,#382918);border-bottom:1px solid #80612d}
-header h1{color:#f3ca7b;margin:0;font-size:26px}
-header p{color:#ddd}
-main{max-width:1000px;margin:auto;padding:16px}
-h2{color:#f3ca7b}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:12px}
-.card{background:#19191f;border:1px solid #393940;border-radius:14px;padding:16px;margin-bottom:14px}
-.metric{font-size:27px;font-weight:bold;margin-top:10px}
-small{color:#bbb}
-label{display:block;margin:12px 0 5px;color:#ddd}
-input,select,button{font:inherit;border-radius:8px;padding:12px;width:100%}
-input,select{background:#101015;color:white;border:1px solid #555}
-button{background:#f3ca7b;color:#17120a;border:0;font-weight:bold;cursor:pointer}
-.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
-table{width:100%;border-collapse:collapse;min-width:650px}
-th,td{text-align:left;padding:11px;border-bottom:1px solid #38383f;font-size:14px}
-th{color:#f3ca7b}
-.tablewrap{overflow-x:auto}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.actions button{width:auto}
-.danger{background:#682e32;color:white}
-.note{color:#bbb;font-size:13px;line-height:1.6}
-footer{text-align:center;color:#999;padding:24px}
+:root{--bg:#090907;--panel:#171512;--panel2:#211b14;--line:#463a2b;--gold:#B99D73;--gold2:#ead8b8;--text:#f6f0e6;--muted:#b7aa98;--red:#8d3b43;--green:#7fc6a1;--shadow:0 18px 48px #0007}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#6C5636 0,#21180f 22%,var(--bg) 58%);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer;transition:transform .15s ease,filter .15s ease}button:active{transform:scale(.98)}
+.shell{max-width:980px;margin:0 auto;padding:0 16px 36px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 0 16px}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}.brandmark{width:42px;height:42px;border:1px solid #B99D73;border-radius:14px;display:grid;place-items:center;color:var(--gold2);font-size:24px;background:linear-gradient(145deg,#3b2b19,#15120f);box-shadow:0 0 24px #d3a64a12}.brandname{font-family:Georgia,serif;font-size:18px;font-weight:700;letter-spacing:.035em;line-height:1.15}.brandtag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-top:4px}
+.pill{border:1px solid #6C5636;background:#211a10;color:var(--gold2);border-radius:999px;padding:8px 11px;font-size:11px;white-space:nowrap}
+.hero{position:relative;overflow:hidden;border:1px solid #6C5636;border-radius:24px;padding:25px 22px 23px;background:linear-gradient(120deg,#211a11eF,#171519f2 58%,#282016);box-shadow:var(--shadow)}
+.hero:after{content:"✦";position:absolute;right:12px;top:-35px;font-size:170px;color:#f0ce8510;pointer-events:none}
+.eyebrow{color:var(--gold);font-size:11px;text-transform:uppercase;letter-spacing:.22em;font-weight:750}
+.hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(30px,7vw,48px);line-height:1.05;letter-spacing:-.03em;margin:12px 0;color:var(--gold2);max-width:650px}
+.hero p{color:#d3ccc2;max-width:520px;margin:0 0 18px}.heroactions{display:flex;flex-wrap:wrap;gap:9px}
+.btn{border:1px solid transparent;border-radius:12px;padding:11px 15px;font-weight:750;font-size:13px}
+.btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#21170a;box-shadow:0 7px 18px #B99D7322}
+.btn-ghost{background:#ffffff08;border-color:#ffffff20;color:var(--text)}
+.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:25px 2px 12px}.sectionhead h2{font-family:Georgia,serif;font-size:22px;margin:0}.sectionhead p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.metric{background:linear-gradient(145deg,#1b1a1e,#131317);border:1px solid var(--line);border-radius:16px;padding:15px;min-width:0}.metriclabel{color:var(--muted);font-size:12px}.metricvalue{font-size:27px;font-weight:750;letter-spacing:-.04em;margin-top:4px;overflow-wrap:anywhere}.metricfoot{color:#8e8882;font-size:10px;margin-top:4px}
+.card{background:linear-gradient(145deg,#19181c,#131317);border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:12px;box-shadow:0 12px 28px #0002}
+.cardtitle{display:flex;align-items:center;gap:10px;margin-bottom:6px}.iconbox{width:37px;height:37px;border:1px solid #6C5636;border-radius:12px;background:#332719;display:grid;place-items:center;font-size:18px}.card h3{font-family:Georgia,serif;font-size:21px;margin:0;color:var(--gold2)}.sub{color:var(--muted);font-size:12px;margin:0 0 14px}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px}
+label{display:block;font-size:12px;color:#d8d0c4;margin:10px 0 6px}
+input{display:block;width:100%;min-width:0;background:#0d0d11;color:var(--text);border:1px solid #403c42;border-radius:11px;padding:12px 13px;outline:none}
+input:focus{border-color:#b9924f;box-shadow:0 0 0 3px #d7b15c16}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.actions .btn{flex:1 1 auto}
+.result{margin-top:14px;padding:16px;border:1px solid #604c2c;border-radius:15px;background:linear-gradient(120deg,#2a2114,#171519)}
+.resultlabel{font-size:12px;color:#d3c5aa}.resultvalue{font-family:Georgia,serif;font-size:34px;font-weight:700;color:var(--gold2);letter-spacing:-.03em}.resultdetail{font-size:12px;color:#c2b9ac}
+.tablewrap{overflow:auto;margin-top:14px;border:1px solid #343137;border-radius:12px}table{border-collapse:collapse;width:100%;min-width:490px}th,td{text-align:left;padding:10px 11px;border-bottom:1px solid #302d32;font-size:12px}th{background:#201b15;color:var(--gold2);font-weight:700}tbody tr:last-child td{border-bottom:0}td{color:#e7e0d5}.tinybtn{background:#352024;color:#f4c2c2;border:1px solid #5b343a;border-radius:8px;padding:5px 9px;font-size:12px}
+.note{font-size:11px;color:#98918a;line-height:1.6;margin:13px 0 0}
+.bottomnav{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:23px 0 6px}.navitem{color:#c6bfb4;text-decoration:none;border:1px solid #39343b;background:#17161a;border-radius:999px;padding:8px 13px;font-size:12px}.navitem:hover{border-color:#a27c3f;color:var(--gold2)}
+footer{text-align:center;color:#77716d;font-size:11px;padding:20px 0 4px}.footerbrand{color:#B99D73;letter-spacing:.12em}
+.hidden{display:none!important}
+@media(max-width:650px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:22px 17px}.topbar{padding-top:15px}.brandname{font-size:16px}.pill{font-size:10px;padding:7px 9px}.card{padding:15px}.sectionhead{margin-top:22px}.metric{padding:13px}.metricvalue{font-size:25px}}
+@media(max-width:370px){.formgrid{grid-template-columns:1fr}.brandtag{letter-spacing:.12em}.pill{display:none}.hero h1{font-size:30px}}
+
+/* SAYRA BRAND: subtle luxury motion */
+@keyframes riseIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes warmGlow{0%,100%{box-shadow:0 18px 48px #0005,0 0 0 #B99D7300}50%{box-shadow:0 18px 48px #0005,0 0 26px #B99D7315}}
+.hero{animation:riseIn .8s ease both,warmGlow 6s ease-in-out 1s infinite}
+.metric,.card{animation:riseIn .7s ease both}
+.metric:nth-child(2){animation-delay:.08s}.metric:nth-child(3){animation-delay:.16s}.metric:nth-child(4){animation-delay:.24s}
+.card{transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+.card:hover{transform:translateY(-3px);border-color:#B99D73;box-shadow:0 18px 36px #0005,0 0 22px #B99D7310}
+.btn-gold{background:linear-gradient(110deg,#ead8b8,#B99D73,#ead8b8);background-size:200% 100%;transition:filter .2s ease,transform .2s ease,background-position .5s ease}
+.btn-gold:hover{background-position:100% 0;filter:brightness(1.05);transform:translateY(-1px)}
+.brandmark{color:#ead8b8;background:linear-gradient(145deg,#6C5636,#15120f)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
 </style>
 </head>
 <body>
-<header>
-<h1>✦ SAYRA BUSINESS HUB</h1>
-<p>Flipkart Seller Dashboard</p>
-<small id="today"></small>
+<div class="shell">
+<header class="topbar">
+  <div class="brand"><div class="brandmark">✦</div><div><div class="brandname">SAYRA BRAND</div><div class="brandtag">BUSINESS WORKSPACE</div></div></div>
+  <div class="pill">✧ PREMIUM • SIMPLE • PRIVATE</div>
 </header>
-<main>
-<div class="card">
-<h2>📊 Business Overview</h2>
-<div class="grid">
-<div class="card"><small>Today's Orders</small><div class="metric" id="orders">0</div></div>
-<div class="card"><small>Shipped</small><div class="metric" id="shipped">0</div></div>
-<div class="card"><small>Delivered</small><div class="metric" id="delivered">0</div></div>
-<div class="card"><small>RTO</small><div class="metric" id="rto">0</div></div>
-<div class="card"><small>Customer Returns</small><div class="metric" id="returns">0</div></div>
-<div class="card"><small>Cancelled</small><div class="metric" id="cancelled">0</div></div>
-</div>
-</div>
+<section class="hero">
+  <div class="eyebrow">BUILD · TRACK · GROW</div>
+  <h1>Your Business<br><span style="color:var(--gold)">Your Way.</span></h1>
+  <p>A premium workspace for your daily orders, returns and selling-price maths.</p>
+  <div class="heroactions"><button class="btn btn-gold" onclick="document.getElementById('daily').scrollIntoView({behavior:'smooth'})">Get Started →</button><button class="btn btn-ghost" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">Open Calculator ↗</button></div>
+</section>
 
-<div class="grid">
-<div class="card"><small>Delivered Sales (all records)</small><div class="metric" id="sales">₹0</div></div>
-<div class="card"><small>Estimated Profit</small><div class="metric" id="profit">₹0</div></div>
-<div class="card"><small>Recorded Product Cost</small><div class="metric" id="cost">₹0</div></div>
-</div>
+<section class="card" id="returnsTracker">
+  <div class="cardtitle"><div class="iconbox">📦</div><h3>Return &amp; RTO Daily Diary</h3></div>
+  <p class="sub">Bas date, type aur chhoti si detail likho — bilkul daily diary ki tarah.</p>
+  <div class="formgrid">
+    <div><label for="rtDate">Date</label><input id="rtDate" type="date"></div>
+    <div><label for="rtType">Type</label><select id="rtType" style="display:block;width:100%;background:#0d0d11;color:var(--text);border:1px solid #403c42;border-radius:11px;padding:12px 13px"><option>RTO</option><option>Customer Return</option></select></div>
+    <div style="grid-column:1/-1"><label for="rtNote">Details (optional)</label><input id="rtNote" maxlength="240" placeholder="Example: 2 jeans RTO aaye / 1 customer return"></div>
+  </div>
+  <div class="actions"><button class="btn btn-gold" id="saveReturn">Save diary entry</button><button class="btn btn-ghost" id="exportReturns">Export CSV</button></div>
+  <div class="cards" style="margin-top:14px">
+    <div class="metric"><div class="metriclabel">RTO entries</div><div class="metricvalue" id="rtRtoCount">0</div></div>
+    <div class="metric"><div class="metriclabel">Customer Return entries</div><div class="metricvalue" id="rtCustomerCount">0</div></div>
+  </div>
+  <div class="tablewrap"><table><thead><tr><th>Date</th><th>Type</th><th>Details</th><th>Action</th></tr></thead><tbody id="rtRows"></tbody></table></div>
+  <p class="note">Entries isi browser/device mein save hoti hain. Data safe rakhne ke liye kabhi-kabhi export kar lena.</p>
+</section>
 
-<div class="card">
-<h2>➕ Add Flipkart Order</h2>
-<form id="orderForm">
-<div class="formgrid">
-<div><label>Order ID</label><input id="oid" required placeholder="e.g. FK12345"></div>
-<div><label>Product Name</label><input id="product" required placeholder="e.g. SAYRA Jeans"></div>
-<div><label>Selling Price (₹)</label><input id="price" type="number" min="0" step="0.01" required placeholder="550"></div>
-<div><label>Product Cost (₹)</label><input id="pcost" type="number" min="0" step="0.01" required placeholder="320"></div>
-<div><label>Order Status</label>
-<select id="status">
-<option>New</option><option>Shipped</option><option>Delivered</option>
-<option>RTO</option><option>Customer Return</option><option>Cancelled</option>
-</select></div>
-</div>
-<p style="margin-top:16px"><button type="submit">Save Order</button></p>
-</form>
-<p class="note">Add each order once. Use its latest status when it changes. Profit is only an estimate and excludes platform fees, shipping, taxes and other expenses.</p>
-</div>
+<div class="sectionhead"><div><h2>Business overview</h2><p>Your saved daily diary at a glance</p></div><div class="eyebrow" id="periodLabel">DAILY LOG</div></div>
+<section class="cards">
+  <div class="metric"><div class="metriclabel">Total orders</div><div class="metricvalue" id="totalOrders">0</div><div class="metricfoot">Recorded entries</div></div>
+  <div class="metric"><div class="metriclabel">Total returns</div><div class="metricvalue" id="totalReturns">0</div><div class="metricfoot">Recorded entries</div></div>
+  <div class="metric"><div class="metriclabel">Return rate</div><div class="metricvalue" id="returnRate">0%</div><div class="metricfoot">Returns ÷ orders</div></div>
+  <div class="metric"><div class="metriclabel">Days tracked</div><div class="metricvalue" id="daysCount">0</div><div class="metricfoot">Dates saved</div></div>
+</section>
 
-<div class="card">
-<h2>📦 Order Records</h2>
-<label>Search order or product</label>
-<input id="search" placeholder="Type order ID or product name...">
-<div class="tablewrap">
-<table>
-<thead><tr><th>Order ID</th><th>Product</th><th>Price</th><th>Cost</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
-<tbody id="rows"></tbody>
-</table>
+<section class="card" id="daily">
+  <div class="cardtitle"><div class="iconbox">📒</div><h3>Daily business diary</h3></div>
+  <p class="sub">Bilkul notebook ki tarah — roz ke totals likho.</p>
+  <div class="formgrid">
+    <div><label for="entryDate">Date</label><input id="entryDate" type="date"></div>
+    <div><label for="entryNote">Short note (optional)</label><input id="entryNote" maxlength="120" placeholder="e.g. jeans / sale"></div>
+    <div><label for="entryOrders">Total orders</label><input id="entryOrders" type="number" min="0" step="1" placeholder="e.g. 55"></div>
+    <div><label for="entryReturns">Total returns</label><input id="entryReturns" type="number" min="0" step="1" placeholder="e.g. 14"></div>
+  </div>
+  <div class="actions"><button class="btn btn-gold" id="saveDay">Save daily record</button><button class="btn btn-ghost" id="exportDays">Export CSV ↗</button></div>
+  <div class="tablewrap"><table><thead><tr><th>Date</th><th>Orders</th><th>Returns</th><th>Rate</th><th>Note</th><th>Action</th></tr></thead><tbody id="dailyRows"></tbody></table></div>
+  <p class="note">If you enter the same date again, you can replace its record. Data is stored in this browser on this device. Export a backup regularly.</p>
+</section>
+
+<section class="card" id="calculator">
+  <div class="cardtitle"><div class="iconbox">🧮</div><h3>Selling price calculator</h3></div>
+  <p class="sub">Quick estimate before you set your product price.</p>
+  <div class="formgrid">
+    <div><label for="sellingPrice">Selling price (₹)</label><input id="sellingPrice" type="number" min="0" step=".01" value="550"></div>
+    <div><label for="productCost">Product cost (₹)</label><input id="productCost" type="number" min="0" step=".01" value="320"></div>
+    <div><label for="shipping">Shipping charge (₹)</label><input id="shipping" type="number" min="0" step=".01" value="112"></div>
+    <div><label for="otherCharges">Other charges (₹)</label><input id="otherCharges" type="number" min="0" step=".01" value="15"></div>
+    <div><label for="returnEstimate">Expected return cost / order (₹)</label><input id="returnEstimate" type="number" min="0" step=".01" value="16"></div>
+    <div><label for="returnPercent">Estimated return rate (%)</label><input id="returnPercent" type="number" min="0" max="100" step=".1" value="10"></div>
+  </div>
+  <div class="result"><div class="resultlabel">Estimated profit per order</div><div class="resultvalue" id="profitResult">₹87</div><div class="resultdetail" id="marginResult">Profit margin: 15.8%</div><p class="note" id="costBreakdown"></p></div>
+  <p class="note">Calculation uses only the costs entered here. It excludes any platform fee, GST, advertising or other expense not included above. The ₹16 return cost is treated as an expected average cost per order based on your estimate.</p>
+</section>
+
+
+<section class="card" id="expenses">
+  <div class="cardtitle"><div class="iconbox">💸</div><h3>Daily Kharcha Diary</h3></div>
+  <p class="sub">Packaging, ads, transport aur doosre daily expenses record karo.</p>
+  <div class="formgrid">
+    <div><label for="expenseDate">Date</label><input id="expenseDate" type="date"></div>
+    <div><label for="expenseCategory">Expense category</label><select id="expenseCategory" style="display:block;width:100%;background:#0d0d11;color:var(--text);border:1px solid #403c42;border-radius:11px;padding:12px 13px"><option>Packaging</option><option>Advertising</option><option>Transport</option><option>Supplies</option><option>Other</option></select></div>
+    <div><label for="expenseAmount">Amount (₹)</label><input id="expenseAmount" type="number" min="0" step=".01" placeholder="e.g. 120"></div>
+    <div><label for="expenseNote">Note (optional)</label><input id="expenseNote" maxlength="120" placeholder="e.g. courier bags"></div>
+  </div>
+  <div class="actions"><button class="btn btn-gold" id="saveExpense">Save expense</button><button class="btn btn-ghost" id="exportExpenses">Export expenses CSV</button></div>
+  <div class="result"><div class="resultlabel">Total recorded expenses</div><div class="resultvalue" id="expenseTotal">₹0</div><div class="resultdetail" id="expenseToday">Today: ₹0</div></div>
+  <div class="tablewrap"><table><thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Note</th><th>Action</th></tr></thead><tbody id="expenseRows"></tbody></table></div>
+  <p class="note">Expense records save in this browser on this device. Add these expenses separately to the profit calculator if you want them included in an estimate.</p>
+</section>
+
+<section class="card" id="checklist">
+  <div class="cardtitle"><div class="iconbox">✅</div><h3>Daily Work Checklist</h3></div>
+  <p class="sub">Roz ke seller tasks tick karo. Checklist selected date ke hisaab se save hoti hai.</p>
+  <div><label for="checkDate">Checklist date</label><input id="checkDate" type="date"></div>
+  <div id="checkItems" style="margin-top:12px"></div>
+  <div class="result"><div class="resultlabel">Today's progress</div><div class="resultvalue" id="checkProgress">0%</div><div class="resultdetail" id="checkProgressText">0 of 6 tasks complete</div><div style="height:8px;background:#39343b;border-radius:99px;overflow:hidden;margin-top:12px"><div id="checkBar" style="height:100%;width:0%;background:linear-gradient(90deg,#6C5636,#B99D73);transition:width .25s"></div></div></div>
+  <div class="actions"><button class="btn btn-ghost" id="resetChecklist">Reset this date</button></div>
+</section>
+
+<section class="card" id="settlements">
+  <div class="cardtitle"><div class="iconbox">🏦</div><h3>Payment Settlement Diary</h3></div>
+  <p class="sub">Platform payments manually record karo: expected, received aur pending amount.</p>
+  <div class="formgrid">
+    <div><label for="settleDate">Date</label><input id="settleDate" type="date"></div>
+    <div><label for="settlePlatform">Platform</label><select id="settlePlatform" style="display:block;width:100%;background:#0d0d11;color:var(--text);border:1px solid #403c42;border-radius:11px;padding:12px 13px"><option>Flipkart</option><option>Meesho</option><option>Amazon</option><option>Other</option></select></div>
+    <div><label for="settleExpected">Expected payment (₹)</label><input id="settleExpected" type="number" min="0" step=".01" placeholder="e.g. 5000"></div>
+    <div><label for="settleReceived">Received payment (₹)</label><input id="settleReceived" type="number" min="0" step=".01" placeholder="e.g. 3500"></div>
+    <div><label for="settleRef">Reference / payout ID (optional)</label><input id="settleRef" maxlength="100" placeholder="Payout reference"></div>
+    <div><label for="settleNote">Note (optional)</label><input id="settleNote" maxlength="120" placeholder="e.g. weekly payout"></div>
+  </div>
+  <div class="actions"><button class="btn btn-gold" id="saveSettlement">Save payment record</button><button class="btn btn-ghost" id="exportSettlements">Export payments CSV</button></div>
+  <div class="cards" style="margin-top:14px">
+    <div class="metric"><div class="metriclabel">Expected</div><div class="metricvalue" id="settleExpectedTotal">₹0</div></div>
+    <div class="metric"><div class="metriclabel">Received</div><div class="metricvalue" id="settleReceivedTotal">₹0</div></div>
+    <div class="metric"><div class="metriclabel">Pending</div><div class="metricvalue" id="settlePendingTotal">₹0</div></div>
+    <div class="metric"><div class="metriclabel">Records</div><div class="metricvalue" id="settleCount">0</div></div>
+  </div>
+  <div class="tablewrap"><table><thead><tr><th>Date</th><th>Platform</th><th>Expected</th><th>Received</th><th>Pending</th><th>Action</th></tr></thead><tbody id="settlementRows"></tbody></table></div>
+  <p class="note">This is a manual tracker, not a live connection to Flipkart/Meesho or your bank. Check your actual payout statement before making decisions.</p>
+</section>
+
+
+
+
+<section class="card" id="backup">
+  <div class="cardtitle"><div class="iconbox">🛡️</div><h3>Keep your records safe</h3></div>
+  <p class="sub">Download your entries before changing devices or clearing browser data.</p>
+  <div class="actions"><button class="btn btn-ghost" id="backupBtn">Download backup</button><button class="btn btn-ghost" id="restoreBtn">Restore backup</button><input id="backupFile" type="file" accept=".json" class="hidden"></div>
+  <p class="note">This is a manual diary, not a live Flipkart connection. Daily totals must be entered by you. Automatic order import would need a supported integration or suitable reports.</p>
+</section>
+
+<nav class="bottomnav"><a class="navitem" href="#returnsTracker">📦 Return/RTO diary</a><a class="navitem" href="#daily">📒 Daily diary</a><a class="navitem" href="#calculator">🧮 Calculator</a><a class="navitem" href="#expenses">💸 Expenses</a><a class="navitem" href="#checklist">✅ Checklist</a><a class="navitem" href="#settlements">🏦 Payments</a><a class="navitem" href="#backup">🛡️ Backup</a><button id="install" class="btn btn-ghost hidden">Install app</button></nav>
+<footer><div class="footerbrand">✦ SAYRA BRAND</div><div>Built for your everyday business.</div><div style="margin-top:6px;color:#B99D73">Powered by Umar ⚡</div>© 2026</footer>
 </div>
-<div class="actions" style="margin-top:14px">
-<button type="button" id="export">Export CSV</button>
-<button type="button" id="backup">Backup Data</button>
-<button type="button" id="restore">Import Backup</button>
-<input id="backupFile" type="file" accept=".json" hidden>
-<button type="button" class="danger" id="clear">Clear All Records</button>
-</div>
-<p class="note">Records are saved in this browser on this device. Export a backup regularly. Clearing browser data may erase records.</p>
-</div>
-</main>
-<footer>© 2026 SAYRA BUSINESS HUB</footer>
 <script>
 const $=id=>document.getElementById(id);
-let data=[];
-try{data=JSON.parse(localStorage.getItem('sayraOrders')||'[]');if(!Array.isArray(data))data=[];}catch(e){data=[];}
-const today=new Date().toLocaleDateString('en-CA');
-$('today').textContent='Date: '+new Date().toLocaleDateString('en-IN');
-const money=n=>'₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
-function save(){localStorage.setItem('sayraOrders',JSON.stringify(data));render();}
+const now=new Date();$('entryDate').value=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,10);
+let entries=[];try{entries=JSON.parse(localStorage.getItem('sayraAestheticDiary')||'[]');if(!Array.isArray(entries))entries=[];}catch(e){entries=[]}
+const pct=(o,r)=>o>0?r/o*100:0;
+function persist(){try{localStorage.setItem('sayraAestheticDiary',JSON.stringify(entries));}catch(e){alert('Storage full — please export CSV or download a backup.');}}
 function render(){
- const todays=data.filter(x=>x.date===today);
- $('orders').textContent=todays.length;
- $('shipped').textContent=todays.filter(x=>x.status==='Shipped').length;
- $('delivered').textContent=todays.filter(x=>x.status==='Delivered').length;
- $('rto').textContent=todays.filter(x=>x.status==='RTO').length;
- $('returns').textContent=todays.filter(x=>x.status==='Customer Return').length;
- $('cancelled').textContent=todays.filter(x=>x.status==='Cancelled').length;
- const delivered=data.filter(x=>x.status==='Delivered');
- $('sales').textContent=money(delivered.reduce((s,x)=>s+x.price,0));
- $('profit').textContent=money(delivered.reduce((s,x)=>s+x.price-x.cost,0));
- $('cost').textContent=money(data.reduce((s,x)=>s+x.cost,0));
- const q=$('search').value.toLowerCase();
- $('rows').innerHTML='';
- data.filter(x=>(x.id+' '+x.product).toLowerCase().includes(q)).slice().reverse().forEach(x=>{
-  const tr=document.createElement('tr');
-  [x.id,x.product,money(x.price),money(x.cost),x.status,x.date].forEach(v=>{
-   const td=document.createElement('td');td.textContent=v;tr.appendChild(td);
-  });
-  const td=document.createElement('td');
-  const b=document.createElement('button');b.textContent='Delete';b.className='danger';b.style.padding='8px';
-  b.onclick=()=>{if(confirm('Delete order '+x.id+'?')){data=data.filter(y=>y.key!==x.key);save();}};
-  td.appendChild(b);tr.appendChild(td);$('rows').appendChild(tr);
- });
+ entries.sort((a,b)=>b.date.localeCompare(a.date));
+ const orders=entries.reduce((s,x)=>s+x.orders,0),returns=entries.reduce((s,x)=>s+x.returns,0);
+ $('totalOrders').textContent=orders.toLocaleString('en-IN');$('totalReturns').textContent=returns.toLocaleString('en-IN');$('returnRate').textContent=(orders?pct(orders,returns):0).toFixed(1)+'%';$('daysCount').textContent=entries.length;
+ $('dailyRows').innerHTML='';
+ entries.forEach(x=>{const tr=document.createElement('tr');[x.date,x.orders,x.returns,pct(x.orders,x.returns).toFixed(1)+'%',x.note||'—'].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});const td=document.createElement('td'),b=document.createElement('button');b.textContent='Delete';b.className='tinybtn';b.onclick=()=>{if(confirm('Delete the record for '+x.date+'?')){entries=entries.filter(y=>y.date!==x.date);persist();render()}};td.appendChild(b);tr.appendChild(td);$('dailyRows').appendChild(tr)});
 }
-$('orderForm').addEventListener('submit',e=>{
- e.preventDefault();
- const id=$('oid').value.trim();
- if(data.some(x=>x.id===id)){alert('This Order ID already exists. Edit or delete its existing record instead.');return;}
- data.push({key:Date.now().toString()+Math.random().toString(16).slice(2),id,product:$('product').value.trim(),price:Number($('price').value),cost:Number($('pcost').value),status:$('status').value,date:today});
- save();e.target.reset();alert('Order saved!');
-});
-$('search').addEventListener('input',render);
-$('clear').onclick=()=>{if(confirm('Delete ALL saved orders? Export a backup first.')){data=[];save();}};
-$('export').onclick=()=>{
- const esc=v=>'"'+String(v).replace(/"/g,'""')+'"';
- const csv=[['Order ID','Product','Price','Cost','Status','Date'],...data.map(x=>[x.id,x.product,x.price,x.cost,x.status,x.date])].map(r=>r.map(esc).join(',')).join('\n');
- const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='sayra-orders.csv';a.click();URL.revokeObjectURL(a.href);
+$('saveDay').onclick=()=>{
+ const date=$('entryDate').value,orders=Number($('entryOrders').value),returns=Number($('entryReturns').value);
+ if(!date||$('entryOrders').value===''||$('entryReturns').value===''){alert('Please enter date, orders and returns.');return}
+ if(orders<0||returns<0||!Number.isInteger(orders)||!Number.isInteger(returns)){alert('Orders and returns must be whole numbers, zero or more.');return}
+ const i=entries.findIndex(x=>x.date===date),item={date,orders,returns,note:$('entryNote').value.trim()};
+ if(i>=0){if(!confirm('A record for this date already exists. Replace it?'))return;entries[i]=item}else entries.push(item);
+ persist();render();$('entryOrders').value='';$('entryReturns').value='';$('entryNote').value='';alert('Daily record saved ❤️');
 };
-$('backup').onclick=()=>{
- const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download='sayra-backup.json';a.click();URL.revokeObjectURL(a.href);
-};
-$('restore').onclick=()=>$('backupFile').click();
-$('backupFile').onchange=async e=>{
- const f=e.target.files[0];if(!f)return;
- try{const parsed=JSON.parse(await f.text());if(!Array.isArray(parsed))throw Error();
- if(confirm('Replace current records with backup?')){data=parsed;save();alert('Backup imported.');}
- }catch(err){alert('Invalid backup file.');}e.target.value='';
-};
-render();
+const calcIds=['sellingPrice','productCost','shipping','otherCharges','returnEstimate','returnPercent'];
+function money(n){return '₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2})}
+function calc(){const p=+$('sellingPrice').value||0,c=+$('productCost').value||0,s=+$('shipping').value||0,o=+$('otherCharges').value||0,r=+$('returnEstimate').value||0,rt=+$('returnPercent').value||0,profit=p-c-s-o-r;
+ $('profitResult').textContent=money(profit);$('profitResult').style.color=profit<0?'#ff9a9a':'var(--gold2)';$('marginResult').textContent='Profit margin: '+(p?profit/p*100:0).toFixed(1)+'%';
+ $('costBreakdown').textContent='Product '+money(c)+' + shipping '+money(s)+' + other '+money(o)+' + expected return cost '+money(r)+' (estimated return rate '+rt+'%). Total listed costs: '+money(c+s+o+r)+'.';
+}
+calcIds.forEach(id=>$(id).addEventListener('input',calc));
+function download(name,content,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+$('exportDays').onclick=()=>{const rows=[['Date','Orders','Returns','Return Rate %','Note'],...entries.map(x=>[x.date,x.orders,x.returns,pct(x.orders,x.returns).toFixed(1),x.note||''])];download('sayra-daily-orders-returns.csv','\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv;charset=utf-8')};
+$('backupBtn').onclick=()=>download('sayra-business-hub-backup.json',JSON.stringify(entries,null,2),'application/json');
+$('restoreBtn').onclick=()=>$('backupFile').click();
+$('backupFile').onchange=async e=>{try{const f=e.target.files[0];if(!f)return;const data=JSON.parse(await f.text());if(!Array.isArray(data)||!data.every(x=>x.date&&Number.isFinite(x.orders)&&Number.isFinite(x.returns)))throw Error();if(confirm('Replace all current daily records with this backup?')){entries=data;persist();render();alert('Backup restored.')}}catch(err){alert('This backup file is not valid.')}e.target.value=''};
+render();calc();
+
+// Daily expense diary
+const todayLocal=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)};
+$('expenseDate').value=todayLocal();$('checkDate').value=todayLocal();$('settleDate').value=todayLocal();
+let expenseEntries=[];try{expenseEntries=JSON.parse(localStorage.getItem('sayraBrandExpenses')||'[]');if(!Array.isArray(expenseEntries))expenseEntries=[]}catch(e){expenseEntries=[]}
+function saveExpenses(){localStorage.setItem('sayraBrandExpenses',JSON.stringify(expenseEntries))}
+function renderExpenses(){const total=expenseEntries.reduce((s,x)=>s+x.amount,0),today=expenseEntries.filter(x=>x.date===todayLocal()).reduce((s,x)=>s+x.amount,0);$('expenseTotal').textContent=money(total);$('expenseToday').textContent='Today: '+money(today);const body=$('expenseRows');body.innerHTML='';[...expenseEntries].sort((a,b)=>b.date.localeCompare(a.date)).forEach(x=>{const tr=document.createElement('tr');[x.date,x.category,money(x.amount),x.note||'—'].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});const td=document.createElement('td'),b=document.createElement('button');b.textContent='Delete';b.className='tinybtn';b.onclick=()=>{if(confirm('Delete this expense record?')){expenseEntries=expenseEntries.filter(y=>y.id!==x.id);saveExpenses();renderExpenses()}};td.appendChild(b);tr.appendChild(td);body.appendChild(tr)})}
+$('saveExpense').onclick=()=>{const date=$('expenseDate').value,amount=Number($('expenseAmount').value);if(!date||$('expenseAmount').value===''||amount<0||!Number.isFinite(amount)){alert('Please enter a valid date and amount.');return}expenseEntries.push({id:Date.now()+'-'+Math.random().toString(16).slice(2),date,category:$('expenseCategory').value,amount,note:$('expenseNote').value.trim()});saveExpenses();renderExpenses();$('expenseAmount').value='';$('expenseNote').value='';alert('Expense saved ❤️')};
+$('exportExpenses').onclick=()=>{const rows=[['Date','Category','Amount','Note'],...expenseEntries.map(x=>[x.date,x.category,x.amount,x.note||''])];download('sayra-expenses.csv','\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv;charset=utf-8')};renderExpenses();
+
+// Daily checklist saved per date
+const taskLabels=['Check new orders','Print shipping labels','Pack parcels','Hand over / dispatch parcels','Check returns and RTOs','Update daily diary'];
+let checklistData={};try{checklistData=JSON.parse(localStorage.getItem('sayraBrandChecklist')||'{}');if(!checklistData||typeof checklistData!=='object')checklistData={}}catch(e){checklistData={}}
+function currentChecks(){const date=$('checkDate').value||todayLocal();if(!Array.isArray(checklistData[date]))checklistData[date]=taskLabels.map(()=>false);return checklistData[date]}
+function renderChecklist(){const values=currentChecks(),host=$('checkItems');host.innerHTML='';taskLabels.forEach((label,i)=>{const wrap=document.createElement('label');wrap.style.cssText='display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #343137;border-radius:12px;margin:8px 0;background:#ffffff04;font-size:14px';const cb=document.createElement('input');cb.type='checkbox';cb.checked=!!values[i];cb.style.cssText='width:18px;height:18px;accent-color:#B99D73;flex:none';const span=document.createElement('span');span.textContent=label;if(cb.checked)span.style.textDecoration='line-through';cb.onchange=()=>{const v=currentChecks();v[i]=cb.checked;checklistData[$('checkDate').value]=v;localStorage.setItem('sayraBrandChecklist',JSON.stringify(checklistData));renderChecklist()};wrap.append(cb,span);host.appendChild(wrap)});const done=values.filter(Boolean).length,p=Math.round(done/taskLabels.length*100);$('checkProgress').textContent=p+'%';$('checkProgressText').textContent=done+' of '+taskLabels.length+' tasks complete';$('checkBar').style.width=p+'%'}
+$('checkDate').addEventListener('change',renderChecklist);$('resetChecklist').onclick=()=>{if(confirm('Reset checklist for this date?')){checklistData[$('checkDate').value]=taskLabels.map(()=>false);localStorage.setItem('sayraBrandChecklist',JSON.stringify(checklistData));renderChecklist()}};renderChecklist();
+
+// Payment settlement diary
+let settlements=[];try{settlements=JSON.parse(localStorage.getItem('sayraBrandSettlements')||'[]');if(!Array.isArray(settlements))settlements=[]}catch(e){settlements=[]}
+function saveSettlements(){localStorage.setItem('sayraBrandSettlements',JSON.stringify(settlements))}
+function renderSettlements(){const expected=settlements.reduce((s,x)=>s+x.expected,0),received=settlements.reduce((s,x)=>s+x.received,0);$('settleExpectedTotal').textContent=money(expected);$('settleReceivedTotal').textContent=money(received);$('settlePendingTotal').textContent=money(settlements.reduce((s,x)=>s+Math.max(0,x.expected-x.received),0));$('settleCount').textContent=settlements.length;const body=$('settlementRows');body.innerHTML='';[...settlements].sort((a,b)=>b.date.localeCompare(a.date)).forEach(x=>{const tr=document.createElement('tr');[x.date,x.platform,money(x.expected),money(x.received),money(Math.max(0,x.expected-x.received))].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});const td=document.createElement('td'),b=document.createElement('button');b.textContent='Delete';b.className='tinybtn';b.onclick=()=>{if(confirm('Delete this payment record?')){settlements=settlements.filter(y=>y.id!==x.id);saveSettlements();renderSettlements()}};td.appendChild(b);tr.appendChild(td);body.appendChild(tr)})}
+$('saveSettlement').onclick=()=>{const date=$('settleDate').value,expected=Number($('settleExpected').value),received=Number($('settleReceived').value);if(!date||$('settleExpected').value===''||$('settleReceived').value===''||expected<0||received<0||!Number.isFinite(expected)||!Number.isFinite(received)){alert('Enter a valid date, expected payment and received payment.');return}settlements.push({id:Date.now()+'-'+Math.random().toString(16).slice(2),date,platform:$('settlePlatform').value,expected,received,ref:$('settleRef').value.trim(),note:$('settleNote').value.trim()});saveSettlements();renderSettlements();$('settleExpected').value='';$('settleReceived').value='';$('settleRef').value='';$('settleNote').value='';alert('Payment record saved ❤️')};
+$('exportSettlements').onclick=()=>{const rows=[['Date','Platform','Expected','Received','Pending','Reference','Note'],...settlements.map(x=>[x.date,x.platform,x.expected,x.received,Math.max(0,x.expected-x.received),x.ref||'',x.note||''])];download('sayra-settlements.csv','\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv;charset=utf-8')};renderSettlements();
+
+
+// Simple Return & RTO daily diary
+$('rtDate').value=todayLocal();
+let returnRecords=[];try{returnRecords=JSON.parse(localStorage.getItem('sayraBrandReturnRto')||'[]');if(!Array.isArray(returnRecords))returnRecords=[]}catch(e){returnRecords=[]}
+function saveReturnRecords(){try{localStorage.setItem('sayraBrandReturnRto',JSON.stringify(returnRecords))}catch(e){alert('Storage full — export your return diary CSV.')}}
+function renderReturnRecords(){const rto=returnRecords.filter(x=>x.type==='RTO'),customer=returnRecords.filter(x=>x.type==='Customer Return');$('rtRtoCount').textContent=rto.length;$('rtCustomerCount').textContent=customer.length;const body=$('rtRows');body.innerHTML='';[...returnRecords].sort((a,b)=>b.date.localeCompare(a.date)).forEach(x=>{const tr=document.createElement('tr');[x.date,x.type,x.note||'—'].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});const td=document.createElement('td'),b=document.createElement('button');b.textContent='Delete';b.className='tinybtn';b.onclick=()=>{if(confirm('Delete this diary entry?')){returnRecords=returnRecords.filter(y=>y.id!==x.id);saveReturnRecords();renderReturnRecords()}};td.appendChild(b);tr.appendChild(td);body.appendChild(tr)})}
+$('saveReturn').onclick=()=>{const date=$('rtDate').value;if(!date){alert('Please select a date.');return}const rec={id:Date.now()+'-'+Math.random().toString(16).slice(2),date,type:$('rtType').value,note:$('rtNote').value.trim()};returnRecords.push(rec);saveReturnRecords();renderReturnRecords();$('rtNote').value='';alert('Diary entry saved ❤️')};
+$('exportReturns').onclick=()=>{const rows=[['Date','Type','Details'],...returnRecords.map(x=>[x.date,x.type,x.note||''])];download('sayra-return-rto-diary.csv','\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv;charset=utf-8')};
+renderReturnRecords();
+
+let deferredPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('install').classList.remove('hidden')});
+$('install').onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}else alert('Open browser menu ⋮ and choose Install app or Add to Home screen if available.')};
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
-</body>
-</html>
+</body></html>
