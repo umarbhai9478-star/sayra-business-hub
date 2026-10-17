@@ -1,51 +1,162 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101014">
 <title>SAYRA BUSINESS HUB</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#0c0c10;color:#fff;font-family:Arial,sans-serif}
-header{text-align:center;padding:35px 15px;background:linear-gradient(135deg,#171717,#382918);border-bottom:1px solid #b58b45}
-h1{color:#f3ca7b;margin:0;font-size:30px}
+body{margin:0;background:#0c0c10;color:#f5f2eb;font-family:Arial,sans-serif}
+header{padding:24px 16px;background:linear-gradient(135deg,#171717,#382918);border-bottom:1px solid #80612d}
+header h1{color:#f3ca7b;margin:0;font-size:26px}
 header p{color:#ddd}
-main{max-width:950px;margin:auto;padding:22px 16px}
-input{width:100%;padding:14px;border-radius:10px;border:1px solid #555;background:#1c1c24;color:white;font-size:16px;margin-bottom:18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-.card{background:#191920;border:1px solid #393943;border-radius:14px;padding:20px}
-.card h2{color:#f3ca7b;font-size:20px}
-.card p{color:#ccc;line-height:1.5;min-height:40px}
-a{display:inline-block;padding:11px 14px;background:#f3ca7b;color:#17120a;text-decoration:none;border-radius:8px;font-weight:bold}
-.note{margin-top:22px;padding:15px;background:#191920;border-radius:10px;color:#ccc;line-height:1.6}
-footer{text-align:center;color:#999;padding:25px}
+main{max-width:1000px;margin:auto;padding:16px}
+h2{color:#f3ca7b}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:12px}
+.card{background:#19191f;border:1px solid #393940;border-radius:14px;padding:16px;margin-bottom:14px}
+.metric{font-size:27px;font-weight:bold;margin-top:10px}
+small{color:#bbb}
+label{display:block;margin:12px 0 5px;color:#ddd}
+input,select,button{font:inherit;border-radius:8px;padding:12px;width:100%}
+input,select{background:#101015;color:white;border:1px solid #555}
+button{background:#f3ca7b;color:#17120a;border:0;font-weight:bold;cursor:pointer}
+.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{text-align:left;padding:11px;border-bottom:1px solid #38383f;font-size:14px}
+th{color:#f3ca7b}
+.tablewrap{overflow-x:auto}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.actions button{width:auto}
+.danger{background:#682e32;color:white}
+.note{color:#bbb;font-size:13px;line-height:1.6}
+footer{text-align:center;color:#999;padding:24px}
 </style>
 </head>
 <body>
 <header>
 <h1>✦ SAYRA BUSINESS HUB</h1>
-<p>Your Business. Your Tools. One Hub.</p>
+<p>Flipkart Seller Dashboard</p>
+<small id="today"></small>
 </header>
 <main>
-<input id="search" placeholder="Search AI tools..." aria-label="Search AI tools">
-<div class="grid" id="tools">
-<div class="card"><h2>💬 AI Chat</h2><p>Chat, writing and research.</p><a href="https://chatgpt.com/" target="_blank" rel="noopener">Open ChatGPT ↗</a><p><a href="https://gemini.google.com/" target="_blank" rel="noopener">Open Gemini ↗</a></p></div>
-<div class="card"><h2>🎨 AI Images</h2><p>Design posters and product creatives.</p><a href="https://www.canva.com/" target="_blank" rel="noopener">Open Canva ↗</a><p><a href="https://huggingface.co/spaces" target="_blank" rel="noopener">Explore AI demos ↗</a></p></div>
-<div class="card"><h2>🎬 AI Video</h2><p>Explore video generation and editing.</p><a href="https://labs.google/fx/tools/flow" target="_blank" rel="noopener">Open Google Flow ↗</a><p><a href="https://www.vlognow.me/" target="_blank" rel="noopener">Open VN Editor ↗</a></p></div>
-<div class="card"><h2>🎙️ AI Voice</h2><p>Convert text into speech.</p><a href="https://ttsmaker.com/" target="_blank" rel="noopener">Open TTSMaker ↗</a></div>
-<div class="card"><h2>💻 AI Coding</h2><p>Experiment with AI and code.</p><a href="https://aistudio.google.com/" target="_blank" rel="noopener">Open AI Studio ↗</a><p><a href="https://github.com/" target="_blank" rel="noopener">Open GitHub ↗</a></p></div>
-<div class="card"><h2>📊 AI Slides</h2><p>Create presentations and study documents.</p><a href="https://slides.google.com/" target="_blank" rel="noopener">Open Google Slides ↗</a><p><a href="https://notebooklm.google.com/" target="_blank" rel="noopener">Open NotebookLM ↗</a></p></div>
+<div class="card">
+<h2>📊 Business Overview</h2>
+<div class="grid">
+<div class="card"><small>Today's Orders</small><div class="metric" id="orders">0</div></div>
+<div class="card"><small>Shipped</small><div class="metric" id="shipped">0</div></div>
+<div class="card"><small>Delivered</small><div class="metric" id="delivered">0</div></div>
+<div class="card"><small>RTO</small><div class="metric" id="rto">0</div></div>
+<div class="card"><small>Customer Returns</small><div class="metric" id="returns">0</div></div>
+<div class="card"><small>Cancelled</small><div class="metric" id="cancelled">0</div></div>
 </div>
-<div class="note"><b>Free tools directory</b><br>Each tool has its own usage limits. Some features may require an account or paid plan. SAYRA BUSINESS HUB does not provide unlimited AI generation.</div>
+</div>
+
+<div class="grid">
+<div class="card"><small>Delivered Sales (all records)</small><div class="metric" id="sales">₹0</div></div>
+<div class="card"><small>Estimated Profit</small><div class="metric" id="profit">₹0</div></div>
+<div class="card"><small>Recorded Product Cost</small><div class="metric" id="cost">₹0</div></div>
+</div>
+
+<div class="card">
+<h2>➕ Add Flipkart Order</h2>
+<form id="orderForm">
+<div class="formgrid">
+<div><label>Order ID</label><input id="oid" required placeholder="e.g. FK12345"></div>
+<div><label>Product Name</label><input id="product" required placeholder="e.g. SAYRA Jeans"></div>
+<div><label>Selling Price (₹)</label><input id="price" type="number" min="0" step="0.01" required placeholder="550"></div>
+<div><label>Product Cost (₹)</label><input id="pcost" type="number" min="0" step="0.01" required placeholder="320"></div>
+<div><label>Order Status</label>
+<select id="status">
+<option>New</option><option>Shipped</option><option>Delivered</option>
+<option>RTO</option><option>Customer Return</option><option>Cancelled</option>
+</select></div>
+</div>
+<p style="margin-top:16px"><button type="submit">Save Order</button></p>
+</form>
+<p class="note">Add each order once. Use its latest status when it changes. Profit is only an estimate and excludes platform fees, shipping, taxes and other expenses.</p>
+</div>
+
+<div class="card">
+<h2>📦 Order Records</h2>
+<label>Search order or product</label>
+<input id="search" placeholder="Type order ID or product name...">
+<div class="tablewrap">
+<table>
+<thead><tr><th>Order ID</th><th>Product</th><th>Price</th><th>Cost</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+<div class="actions" style="margin-top:14px">
+<button type="button" id="export">Export CSV</button>
+<button type="button" id="backup">Backup Data</button>
+<button type="button" id="restore">Import Backup</button>
+<input id="backupFile" type="file" accept=".json" hidden>
+<button type="button" class="danger" id="clear">Clear All Records</button>
+</div>
+<p class="note">Records are saved in this browser on this device. Export a backup regularly. Clearing browser data may erase records.</p>
+</div>
 </main>
 <footer>© 2026 SAYRA BUSINESS HUB</footer>
 <script>
-document.getElementById('search').addEventListener('input',function(){
-const q=this.value.toLowerCase();
-document.querySelectorAll('.card').forEach(card=>{
-card.style.display=card.innerText.toLowerCase().includes(q)?'':'none';
+const $=id=>document.getElementById(id);
+let data=[];
+try{data=JSON.parse(localStorage.getItem('sayraOrders')||'[]');if(!Array.isArray(data))data=[];}catch(e){data=[];}
+const today=new Date().toLocaleDateString('en-CA');
+$('today').textContent='Date: '+new Date().toLocaleDateString('en-IN');
+const money=n=>'₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
+function save(){localStorage.setItem('sayraOrders',JSON.stringify(data));render();}
+function render(){
+ const todays=data.filter(x=>x.date===today);
+ $('orders').textContent=todays.length;
+ $('shipped').textContent=todays.filter(x=>x.status==='Shipped').length;
+ $('delivered').textContent=todays.filter(x=>x.status==='Delivered').length;
+ $('rto').textContent=todays.filter(x=>x.status==='RTO').length;
+ $('returns').textContent=todays.filter(x=>x.status==='Customer Return').length;
+ $('cancelled').textContent=todays.filter(x=>x.status==='Cancelled').length;
+ const delivered=data.filter(x=>x.status==='Delivered');
+ $('sales').textContent=money(delivered.reduce((s,x)=>s+x.price,0));
+ $('profit').textContent=money(delivered.reduce((s,x)=>s+x.price-x.cost,0));
+ $('cost').textContent=money(data.reduce((s,x)=>s+x.cost,0));
+ const q=$('search').value.toLowerCase();
+ $('rows').innerHTML='';
+ data.filter(x=>(x.id+' '+x.product).toLowerCase().includes(q)).slice().reverse().forEach(x=>{
+  const tr=document.createElement('tr');
+  [x.id,x.product,money(x.price),money(x.cost),x.status,x.date].forEach(v=>{
+   const td=document.createElement('td');td.textContent=v;tr.appendChild(td);
+  });
+  const td=document.createElement('td');
+  const b=document.createElement('button');b.textContent='Delete';b.className='danger';b.style.padding='8px';
+  b.onclick=()=>{if(confirm('Delete order '+x.id+'?')){data=data.filter(y=>y.key!==x.key);save();}};
+  td.appendChild(b);tr.appendChild(td);$('rows').appendChild(tr);
+ });
+}
+$('orderForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const id=$('oid').value.trim();
+ if(data.some(x=>x.id===id)){alert('This Order ID already exists. Edit or delete its existing record instead.');return;}
+ data.push({key:Date.now().toString()+Math.random().toString(16).slice(2),id,product:$('product').value.trim(),price:Number($('price').value),cost:Number($('pcost').value),status:$('status').value,date:today});
+ save();e.target.reset();alert('Order saved!');
 });
-});
+$('search').addEventListener('input',render);
+$('clear').onclick=()=>{if(confirm('Delete ALL saved orders? Export a backup first.')){data=[];save();}};
+$('export').onclick=()=>{
+ const esc=v=>'"'+String(v).replace(/"/g,'""')+'"';
+ const csv=[['Order ID','Product','Price','Cost','Status','Date'],...data.map(x=>[x.id,x.product,x.price,x.cost,x.status,x.date])].map(r=>r.map(esc).join(',')).join('\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='sayra-orders.csv';a.click();URL.revokeObjectURL(a.href);
+};
+$('backup').onclick=()=>{
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download='sayra-backup.json';a.click();URL.revokeObjectURL(a.href);
+};
+$('restore').onclick=()=>$('backupFile').click();
+$('backupFile').onchange=async e=>{
+ const f=e.target.files[0];if(!f)return;
+ try{const parsed=JSON.parse(await f.text());if(!Array.isArray(parsed))throw Error();
+ if(confirm('Replace current records with backup?')){data=parsed;save();alert('Backup imported.');}
+ }catch(err){alert('Invalid backup file.');}e.target.value='';
+};
+render();
 </script>
 </body>
 </html>
