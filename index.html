@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAYRA BUSINESS HUB</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0c0c10;color:#fff;font-family:Arial,sans-serif}
+header{text-align:center;padding:35px 15px;background:linear-gradient(135deg,#171717,#382918);border-bottom:1px solid #b58b45}
+h1{color:#f3ca7b;margin:0;font-size:30px}
+header p{color:#ddd}
+main{max-width:950px;margin:auto;padding:22px 16px}
+input{width:100%;padding:14px;border-radius:10px;border:1px solid #555;background:#1c1c24;color:white;font-size:16px;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.card{background:#191920;border:1px solid #393943;border-radius:14px;padding:20px}
+.card h2{color:#f3ca7b;font-size:20px}
+.card p{color:#ccc;line-height:1.5;min-height:40px}
+a{display:inline-block;padding:11px 14px;background:#f3ca7b;color:#17120a;text-decoration:none;border-radius:8px;font-weight:bold}
+.note{margin-top:22px;padding:15px;background:#191920;border-radius:10px;color:#ccc;line-height:1.6}
+footer{text-align:center;color:#999;padding:25px}
+</style>
+</head>
+<body>
+<header>
+<h1>✦ SAYRA BUSINESS HUB</h1>
+<p>Your Business. Your Tools. One Hub.</p>
+</header>
+<main>
+<input id="search" placeholder="Search AI tools..." aria-label="Search AI tools">
+<div class="grid" id="tools">
+<div class="card"><h2>💬 AI Chat</h2><p>Chat, writing and research.</p><a href="https://chatgpt.com/" target="_blank" rel="noopener">Open ChatGPT ↗</a><p><a href="https://gemini.google.com/" target="_blank" rel="noopener">Open Gemini ↗</a></p></div>
+<div class="card"><h2>🎨 AI Images</h2><p>Design posters and product creatives.</p><a href="https://www.canva.com/" target="_blank" rel="noopener">Open Canva ↗</a><p><a href="https://huggingface.co/spaces" target="_blank" rel="noopener">Explore AI demos ↗</a></p></div>
+<div class="card"><h2>🎬 AI Video</h2><p>Explore video generation and editing.</p><a href="https://labs.google/fx/tools/flow" target="_blank" rel="noopener">Open Google Flow ↗</a><p><a href="https://www.vlognow.me/" target="_blank" rel="noopener">Open VN Editor ↗</a></p></div>
+<div class="card"><h2>🎙️ AI Voice</h2><p>Convert text into speech.</p><a href="https://ttsmaker.com/" target="_blank" rel="noopener">Open TTSMaker ↗</a></div>
+<div class="card"><h2>💻 AI Coding</h2><p>Experiment with AI and code.</p><a href="https://aistudio.google.com/" target="_blank" rel="noopener">Open AI Studio ↗</a><p><a href="https://github.com/" target="_blank" rel="noopener">Open GitHub ↗</a></p></div>
+<div class="card"><h2>📊 AI Slides</h2><p>Create presentations and study documents.</p><a href="https://slides.google.com/" target="_blank" rel="noopener">Open Google Slides ↗</a><p><a href="https://notebooklm.google.com/" target="_blank" rel="noopener">Open NotebookLM ↗</a></p></div>
+</div>
+<div class="note"><b>Free tools directory</b><br>Each tool has its own usage limits. Some features may require an account or paid plan. SAYRA BUSINESS HUB does not provide unlimited AI generation.</div>
+</main>
+<footer>© 2026 SAYRA BUSINESS HUB</footer>
+<script>
+document.getElementById('search').addEventListener('input',function(){
+const q=this.value.toLowerCase();
+document.querySelectorAll('.card').forEach(card=>{
+card.style.display=card.innerText.toLowerCase().includes(q)?'':'none';
+});
+});
+</script>
+</body>
+</html>
