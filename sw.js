@@ -1,5 +1,15 @@
-const CACHE_NAME = 'sayra-brand-hub-v3';
-const ASSETS = ['./', './index.html', './manifest.json', './icon.svg'];
+const CACHE_NAME = 'sayra-brand-hub-v4';
+const ASSETS = [
+  './',
+  './index.html',
+  './label-cropper.js',
+  './jeans-showcase.js',
+  './manifest.json',
+  './icon.svg',
+  './vendor/pdf.min.mjs',
+  './vendor/pdf.worker.min.mjs',
+  './vendor/pdf-lib.min.js',
+];
 
 self.addEventListener('install', event => {
   event.waitUntil(

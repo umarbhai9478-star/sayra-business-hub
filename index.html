@@ -1470,6 +1470,546 @@ footer {
   transform: translateX(-50%) translateY(0);
 }
 
+/* =========================================================
+   SMART PDF SHIPPING LABEL CROPPER
+   ========================================================= */
+.privacy-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(245, 255, 210, 0.92);
+  border: 1px solid rgba(137, 168, 8, 0.48);
+  color: var(--ink);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 13px;
+}
+
+.pdf-dropzone {
+  border: 2px dashed #A37ED4;
+  border-radius: 18px;
+  padding: 22px 18px;
+  text-align: center;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.92), rgba(243, 235, 253, 0.84));
+  cursor: pointer;
+  transition: border-color .18s ease, background-color .18s ease, transform .18s ease;
+}
+.pdf-dropzone:hover,
+.pdf-dropzone.dragover {
+  border-color: var(--tomato);
+  background: linear-gradient(155deg, #FFFFFF, rgba(212, 255, 63, 0.22));
+  transform: translateY(-2px);
+}
+.pdf-drop-title {
+  font-weight: 800;
+  font-size: 15.5px;
+  color: var(--ink);
+  margin-top: 6px;
+}
+.pdf-drop-sub {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin: 4px 0 12px;
+}
+
+.pdf-error {
+  margin-top: 12px;
+  padding: 12px 15px;
+  border-radius: 14px;
+  background: var(--tomato-soft);
+  border: 1.5px solid var(--tomato);
+  color: var(--tomato-deep);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.pdf-filebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(244, 238, 252, 0.92);
+  border: 1px solid rgba(150, 114, 196, 0.40);
+}
+.pdf-filename {
+  font-weight: 800;
+  font-size: 13.5px;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.pdf-filemeta {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.pdf-presets-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 13px;
+}
+.chip-btn {
+  background: #FFFFFF;
+  color: var(--ink);
+  border: 1px solid rgba(150, 114, 196, 0.48);
+  border-radius: 999px;
+  padding: 7px 13px;
+  font-size: 12px;
+  font-weight: 700;
+  min-height: 36px;
+  box-shadow: 0 2px 0 rgba(140, 102, 189, 0.28);
+  transition: transform .14s ease, background .14s ease;
+}
+.chip-btn:hover {
+  background: var(--chartreuse);
+  transform: translateY(-1px);
+}
+.chip-btn-smart {
+  background: linear-gradient(180deg, var(--chartreuse-bright), var(--chartreuse));
+  border-color: rgba(28, 18, 38, 0.28);
+  box-shadow: 0 2px 0 var(--chartreuse-edge);
+}
+
+.pdf-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.95fr);
+  gap: 16px;
+  margin-top: 15px;
+  align-items: start;
+}
+
+.pdf-stage-panel,
+.pdf-output-panel {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(150, 114, 196, 0.38);
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: inset 0 1px 0 #FFFFFF;
+}
+
+.pdf-page-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 11px;
+}
+.pdf-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.pdf-nav-group select {
+  width: auto;
+  min-height: 36px;
+  padding: 6px 32px 6px 10px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.pdf-stage-scroll {
+  overflow: auto;
+  border-radius: 12px;
+  background: #E9E1F4;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+}
+.pdf-stage-inner {
+  width: 100%;
+  max-width: 470px;
+}
+.pdf-crop-stage {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 10px 26px rgba(28, 18, 38, 0.22);
+  user-select: none;
+  touch-action: none;
+  cursor: crosshair;
+  background: #FFFFFF;
+}
+#pdfSourceCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pdf-crop-box {
+  position: absolute;
+  left: 2.5%;
+  top: 1.8%;
+  width: 95%;
+  height: 47%;
+  border: 2.5px solid var(--tomato);
+  box-shadow:
+    0 0 0 9999px rgba(28, 18, 38, 0.46),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+  cursor: move;
+}
+.pdf-crop-box::before,
+.pdf-crop-box::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.pdf-crop-box::before {
+  inset: 33.33% 0;
+  border-top: 1px dashed rgba(228, 50, 52, 0.45);
+  border-bottom: 1px dashed rgba(228, 50, 52, 0.45);
+}
+.pdf-crop-box::after {
+  inset: 0 33.33%;
+  border-left: 1px dashed rgba(228, 50, 52, 0.45);
+  border-right: 1px dashed rgba(228, 50, 52, 0.45);
+}
+
+.crop-handle {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--chartreuse);
+  border: 2px solid var(--ink);
+  box-shadow: 0 2px 6px rgba(28, 18, 38, 0.35);
+  transform: translate(-50%, -50%);
+}
+.crop-handle[data-handle="nw"] { left: 0; top: 0; cursor: nwse-resize; }
+.crop-handle[data-handle="n"]  { left: 50%; top: 0; cursor: ns-resize; }
+.crop-handle[data-handle="ne"] { left: 100%; top: 0; cursor: nesw-resize; }
+.crop-handle[data-handle="e"]  { left: 100%; top: 50%; cursor: ew-resize; }
+.crop-handle[data-handle="se"] { left: 100%; top: 100%; cursor: nwse-resize; }
+.crop-handle[data-handle="s"]  { left: 50%; top: 100%; cursor: ns-resize; }
+.crop-handle[data-handle="sw"] { left: 0; top: 100%; cursor: nesw-resize; }
+.crop-handle[data-handle="w"]  { left: 0; top: 50%; cursor: ew-resize; }
+
+.crop-num-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+.crop-num-grid input {
+  padding: 8px 10px;
+  min-height: 40px;
+  font-size: 15px;
+}
+
+.pdf-output-stage {
+  background: #E9E1F4;
+  border-radius: 12px;
+  padding: 14px;
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+}
+#pdfOutputPreviewCanvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 10px 24px rgba(28, 18, 38, 0.20);
+  background: #FFFFFF;
+}
+
+/* =========================================================
+   SAYRA BRAND JEANS SHOWCASE GALLERY
+   ========================================================= */
+.jeans-placeholder-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 11px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(203, 179, 232, 0.45), rgba(212, 255, 63, 0.25));
+  border: 1px solid rgba(140, 102, 189, 0.45);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.jeans-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+.jeans-search-wrap {
+  flex: 1 1 220px;
+}
+.jeans-toolbar-btns {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.jeans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.jeans-card {
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  outline: 1px solid rgba(150, 114, 196, 0.38);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    0 6px 0 var(--lavender-edge),
+    0 18px 34px -10px rgba(38, 16, 68, 0.14);
+  transition: transform .2s cubic-bezier(.22, 1, .36, 1), box-shadow .2s ease;
+}
+.jeans-card:hover {
+  transform: translateY(-4px);
+}
+.jeans-card-lime {
+  box-shadow:
+    0 6px 0 var(--chartreuse-edge),
+    0 18px 34px -10px rgba(137, 168, 8, 0.20);
+}
+.jeans-card-red {
+  box-shadow:
+    0 6px 0 var(--tomato-edge),
+    0 18px 34px -10px rgba(228, 50, 52, 0.18);
+}
+
+.jeans-media {
+  position: relative;
+  aspect-ratio: 4 / 4.6;
+  background: linear-gradient(145deg, #E6D7F8 0%, var(--lavender) 58%, #F6F0FD 100%);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.jeans-card-lime .jeans-media.is-placeholder {
+  background: linear-gradient(145deg, #F0FFB8 0%, #E1FF78 55%, var(--lavender-soft) 100%);
+}
+.jeans-card-red .jeans-media.is-placeholder {
+  background: linear-gradient(145deg, #FFE4E4 0%, #FFD2D3 52%, var(--lavender-soft) 100%);
+}
+.jeans-media.dragover {
+  outline: 3px dashed var(--tomato);
+  outline-offset: -6px;
+}
+.jeans-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  cursor: zoom-in;
+}
+
+.jeans-placeholder-inner {
+  padding: 18px 16px;
+  text-align: center;
+  cursor: pointer;
+}
+.jeans-ph-pill {
+  display: inline-block;
+  background: var(--ink);
+  color: #FFFFFF;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .13em;
+  padding: 4px 9px;
+  border-radius: 999px;
+}
+.jeans-ph-monogram {
+  width: 48px;
+  height: 48px;
+  margin: 12px auto 8px;
+  border-radius: 15px;
+  background: var(--tomato);
+  color: #FFFFFF;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  box-shadow: 0 4px 0 var(--tomato-edge), 0 10px 18px rgba(28, 18, 38, 0.18);
+}
+.jeans-ph-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--ink);
+}
+.jeans-ph-sub {
+  font-size: 11.5px;
+  color: var(--ink-body);
+  margin: 5px 0 0;
+  line-height: 1.45;
+}
+
+.jeans-real-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--ink);
+  color: var(--chartreuse);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  padding: 4px 9px;
+  border-radius: 999px;
+}
+.jeans-price-pill {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: var(--chartreuse);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(28, 18, 38, 0.22);
+}
+.jeans-colour-pill {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  max-width: 48%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(28, 18, 38, 0.16);
+}
+
+.jeans-card-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.jeans-media-btns {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.jeans-btn-sm {
+  padding: 8px 12px;
+  min-height: 38px;
+  font-size: 12px;
+  flex: 1 1 auto;
+}
+.jeans-fields textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  resize: vertical;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  border: 1.5px solid #C6AEDF;
+  border-radius: 12px;
+  padding: 9px 12px;
+  font: inherit;
+  font-size: 16px;
+  outline: none;
+}
+.jeans-fields textarea:focus {
+  background: #FFFFFF;
+  border-color: #7E52B8;
+  box-shadow: 0 0 0 3px rgba(203, 179, 232, 0.65);
+}
+.jeans-row-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.jeans-size-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+.jeans-size-chip {
+  background: var(--lavender);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.jeans-chip-empty {
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+}
+.jeans-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+.jeans-empty-search {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 22px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.jeans-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(28, 18, 38, 0.84);
+  backdrop-filter: blur(10px);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+.jeans-lightbox-box {
+  max-width: 680px;
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 22px;
+  padding: 14px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+.jeans-lightbox-box img {
+  max-width: 100%;
+  max-height: 74vh;
+  border-radius: 14px;
+  display: block;
+  margin: 0 auto;
+}
+.jeans-lightbox-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 .hidden { display: none !important; }
 
 /* Responsive Layout: Tablet & Mobile */
@@ -1480,6 +2020,12 @@ footer {
     gap: 15px;
   }
   .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pdf-workbench {
+    grid-template-columns: 1fr;
+  }
+  .jeans-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1503,6 +2049,10 @@ footer {
   .studio-stat-val { font-size: 15px; }
   .card { padding: 17px 15px; margin-top: 15px; }
   .formgrid { grid-template-columns: 1fr; gap: 4px; }
+  .crop-num-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .crop-handle { width: 22px; height: 22px; }
+  .jeans-grid { grid-template-columns: 1fr; }
+  .jeans-row-2 { grid-template-columns: 1fr; }
   .actions .btn { flex: 1 1 100%; }
   .metric { padding: 14px; }
   .metricvalue { font-size: 24px; }
@@ -1571,8 +2121,9 @@ footer {
       <h1>Your Business,<br><span class="hero-highlight">Your Way.</span></h1>
       <p>A dimensional, private workspace for your daily returns, orders, kharcha, payouts and selling-price maths.</p>
       <div class="heroactions">
-        <button class="btn btn-gold" onclick="document.getElementById('returnsTracker').scrollIntoView({behavior:'smooth'})">Log Return / RTO →</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">Open Calculator ↗</button>
+        <button class="btn btn-gold" onclick="document.getElementById('labelCropper').scrollIntoView({behavior:'smooth'})">Crop Label PDF ✂️</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('returnsTracker').scrollIntoView({behavior:'smooth'})">Return / RTO Diary →</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('jeansShowcase').scrollIntoView({behavior:'smooth'})">Jeans Showcase 👖</button>
       </div>
     </div>
 
@@ -1601,6 +2152,8 @@ footer {
 
 <nav class="quickbar" aria-label="Quick section jump">
   <a class="quicklink active" href="#returnsTracker">📦 Return/RTO</a>
+  <a class="quicklink" href="#labelCropper">✂️ Label Cropper</a>
+  <a class="quicklink" href="#jeansShowcase">👖 Jeans Showcase</a>
   <a class="quicklink" href="#daily">📒 Daily Diary</a>
   <a class="quicklink" href="#calculator">🧮 Calculator</a>
   <a class="quicklink" href="#expenses">💸 Kharcha</a>
@@ -1633,6 +2186,198 @@ footer {
   </div>
   <div class="tablewrap"><table><thead><tr><th>Date</th><th>Type</th><th>Details</th><th>Action</th></tr></thead><tbody id="rtRows"></tbody></table></div>
   <p class="note">Entries isi browser/device mein save hoti hain. Data safe rakhne ke liye kabhi-kabhi export kar lena.</p>
+</section>
+
+<section class="card accent-chartreuse" id="labelCropper">
+  <div class="cardhead">
+    <div class="cardtitle"><div class="iconbox">✂️</div><h3>Smart PDF Shipping Label Cropper</h3></div>
+    <span class="card-tag">Flipkart · Meesho · Thermal</span>
+  </div>
+  <p class="sub">Upload multi-page Flipkart or Meesho shipping label PDFs, preview &amp; fine-tune the crop area, set custom dimensions, and download vector-sharp print-ready PDFs.</p>
+  <div class="privacy-strip">🔒 100% Private Browser-Side PDF Engine — Shipping labels never leave your device</div>
+
+  <div class="pdf-dropzone" id="pdfDropzone" role="button" tabindex="0" aria-label="Upload shipping label PDF">
+    <div style="font-size:28px" aria-hidden="true">📄</div>
+    <div class="pdf-drop-title">Tap to select or drag &amp; drop a Shipping Label PDF</div>
+    <div class="pdf-drop-sub">Supports single &amp; multi-page Flipkart, Meesho, Amazon &amp; courier label PDFs • Original file stays untouched</div>
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+      <span class="btn btn-gold" style="pointer-events:none">Choose Label PDF</span>
+      <button type="button" class="btn btn-ghost" id="loadSamplePdfBtn">🧪 Try 2-Page Sample Flipkart/Meesho PDF</button>
+    </div>
+    <input id="pdfUploadInput" type="file" accept=".pdf,application/pdf" class="hidden">
+  </div>
+
+  <div id="pdfErrorBanner" class="pdf-error hidden" role="alert"></div>
+
+  <div id="pdfWorkspace" class="hidden">
+    <div class="pdf-filebar">
+      <div>
+        <div class="pdf-filename" id="pdfFileName">shipping-label.pdf</div>
+        <div class="pdf-filemeta" id="pdfFileMeta">Original file untouched</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span class="card-tag" id="pdfPageDimsBadge">210 × 297 mm</span>
+        <button type="button" class="tinybtn" id="pdfClearBtn">Clear PDF</button>
+      </div>
+    </div>
+
+    <div class="pdf-presets-bar">
+      <button type="button" class="chip-btn chip-btn-smart" data-crop-preset="auto">✨ Smart Auto-Detect Label</button>
+      <button type="button" class="chip-btn" data-crop-preset="flipkart">Flipkart Label</button>
+      <button type="button" class="chip-btn" data-crop-preset="meesho">Meesho Label</button>
+      <button type="button" class="chip-btn" data-crop-preset="tophalf">Top Half (50%)</button>
+      <button type="button" class="chip-btn" data-crop-preset="full">Full Page</button>
+    </div>
+
+    <div class="pdf-workbench">
+      <div class="pdf-stage-panel">
+        <div class="pdf-page-toolbar">
+          <div class="pdf-nav-group">
+            <button type="button" class="chip-btn" id="pdfPrevPage">◀ Prev</button>
+            <select id="pdfPageSelect" aria-label="Select PDF page"></select>
+            <button type="button" class="chip-btn" id="pdfNextPage">Next ▶</button>
+            <span class="pdf-filemeta" id="pdfPageIndicator">Page 1 of 1</span>
+          </div>
+          <button type="button" class="chip-btn" id="pdfZoomBtn">🔍 Larger Preview</button>
+        </div>
+
+        <div class="pdf-stage-scroll">
+          <div class="pdf-stage-inner" id="pdfStageInner">
+            <div class="pdf-crop-stage" id="pdfCropStage">
+              <canvas id="pdfSourceCanvas"></canvas>
+              <div class="pdf-crop-box" id="pdfCropBox">
+                <span class="crop-handle" data-handle="nw"></span>
+                <span class="crop-handle" data-handle="n"></span>
+                <span class="crop-handle" data-handle="ne"></span>
+                <span class="crop-handle" data-handle="e"></span>
+                <span class="crop-handle" data-handle="se"></span>
+                <span class="crop-handle" data-handle="s"></span>
+                <span class="crop-handle" data-handle="sw"></span>
+                <span class="crop-handle" data-handle="w"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:8px;flex-wrap:wrap">
+          <span class="pdf-filemeta">Drag inside box to move • Drag handles to resize</span>
+          <span class="card-tag" id="pdfCropReadout">0 × 0 mm</span>
+        </div>
+
+        <div class="crop-num-grid">
+          <div><label for="cropX">Left (%)</label><input id="cropX" type="number" min="0" max="95" step="0.5" value="2.5"></div>
+          <div><label for="cropY">Top (%)</label><input id="cropY" type="number" min="0" max="95" step="0.5" value="1.8"></div>
+          <div><label for="cropW">Width (%)</label><input id="cropW" type="number" min="5" max="100" step="0.5" value="95"></div>
+          <div><label for="cropH">Height (%)</label><input id="cropH" type="number" min="5" max="100" step="0.5" value="47"></div>
+        </div>
+      </div>
+
+      <div class="pdf-output-panel">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px">
+          <strong style="font-size:14px">Print Output Settings &amp; Live Sheet Preview</strong>
+        </div>
+
+        <div class="pdf-output-stage">
+          <canvas id="pdfOutputPreviewCanvas"></canvas>
+        </div>
+        <div class="pdf-filemeta" id="pdfOutputMeta" style="margin-top:8px;text-align:center">Output sheet preview</div>
+
+        <div class="formgrid" style="margin-top:8px">
+          <div class="full-span">
+            <label for="pdfSizePreset">Output paper / label size</label>
+            <select id="pdfSizePreset">
+              <option value="thermal_4x6">4 × 6 in Thermal Label (Standard)</option>
+              <option value="thermal_100x150">100 × 150 mm Thermal Label</option>
+              <option value="match">Match Exact Cropped Area</option>
+              <option value="a4">A4 Print Sheet (210 × 297 mm)</option>
+              <option value="a6">A6 Print Sheet (105 × 148 mm)</option>
+              <option value="custom">Custom Dimensions</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="formgrid" id="pdfCustomDimsWrap">
+          <div>
+            <label for="pdfOutWidth">Width</label>
+            <input id="pdfOutWidth" type="number" min="0.5" step="0.1" value="4">
+          </div>
+          <div>
+            <label for="pdfOutHeight">Height</label>
+            <input id="pdfOutHeight" type="number" min="0.5" step="0.1" value="6">
+          </div>
+          <div>
+            <label for="pdfOutUnit">Unit</label>
+            <select id="pdfOutUnit">
+              <option value="in">Inches (in)</option>
+              <option value="mm">Millimeters (mm)</option>
+              <option value="px">Pixels (px)</option>
+            </select>
+          </div>
+          <div>
+            <label for="pdfMarginMm">Safe margin (mm)</label>
+            <input id="pdfMarginMm" type="number" min="0" max="40" step="0.5" value="2">
+          </div>
+        </div>
+
+        <div class="formgrid">
+          <div>
+            <label for="pdfFitMode">Label placement</label>
+            <select id="pdfFitMode">
+              <option value="center">Fit &amp; Center (No Distortion)</option>
+              <option value="top">Fit &amp; Align Top</option>
+              <option value="auto_rotate">Auto-Rotate 90° to Maximize Fill (Wide Labels)</option>
+              <option value="stretch">Stretch to Fill Sheet</option>
+            </select>
+          </div>
+          <div>
+            <label for="pdfPageScope">Pages to export</label>
+            <select id="pdfPageScope">
+              <option value="all" id="pdfAllScopeOption">All pages</option>
+              <option value="current">Current page only</option>
+              <option value="custom">Custom page range</option>
+            </select>
+          </div>
+          <div class="full-span hidden" id="pdfCustomRangeWrap">
+            <label for="pdfPageRange">Custom page numbers (e.g. 1-3, 5)</label>
+            <input id="pdfPageRange" placeholder="e.g. 1-3, 5">
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-gold" id="pdfDownloadBtn">⬇ Download Print-Ready PDF</button>
+          <button type="button" class="btn btn-ghost" id="pdfPrintBtn">🖨️ Open Print View</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="note" id="pdfStatusText">Upload a Flipkart or Meesho shipping label PDF to begin.</p>
+</section>
+
+<section class="card accent-tri" id="jeansShowcase">
+  <div class="cardhead">
+    <div class="cardtitle"><div class="iconbox">👖</div><h3>SAYRA BRAND Jeans Showcase</h3></div>
+    <span class="card-tag" id="jeansStatusBadge">Temporary Placeholders Active</span>
+  </div>
+  <p class="sub">Upload your real SAYRA BRAND jeans photos and manage editable style names, product details, selling prices, colours, and sizes.</p>
+
+  <div class="jeans-placeholder-banner" id="jeansPlaceholderNotice">
+    <span>✦ Temporary placeholder slots are shown below — zero fake stock photos or invented specs. Upload your real SAYRA BRAND jeans photos anytime (or send them in chat to embed directly).</span>
+  </div>
+
+  <div class="jeans-toolbar">
+    <div class="jeans-search-wrap">
+      <input id="jeansSearchInput" placeholder="Search showcase by style, colour, size or ₹ price…">
+    </div>
+    <div class="jeans-toolbar-btns">
+      <button type="button" class="btn btn-gold" id="bulkJeansPhotosBtn">📷 Upload Real Jeans Photos</button>
+      <button type="button" class="btn btn-ghost" id="addJeansSlotBtn">+ Add Product Slot</button>
+      <input id="bulkJeansPhotosInput" type="file" accept="image/*" multiple class="hidden">
+    </div>
+  </div>
+
+  <div class="jeans-grid" id="jeansGrid"></div>
+  <p class="note">Edits save automatically on this device and are included in your workspace backup file. Tap “Test Margin in Calculator” on any card to check per-order profit immediately.</p>
 </section>
 
 <div class="sectionhead">
@@ -1834,6 +2579,8 @@ footer {
 
 <nav class="bottomnav">
   <a class="navitem" href="#returnsTracker">📦 Return/RTO diary</a>
+  <a class="navitem" href="#labelCropper">✂️ Label Cropper</a>
+  <a class="navitem" href="#jeansShowcase">👖 Jeans Showcase</a>
   <a class="navitem" href="#daily">📒 Daily diary</a>
   <a class="navitem" href="#calculator">🧮 Calculator</a>
   <a class="navitem" href="#expenses">💸 Expenses</a>
@@ -1850,6 +2597,15 @@ footer {
   <div style="font-size:11px;color:var(--ink-body)">© 2026</div>
 </footer>
 
+</div>
+<div id="jeansLightbox" class="jeans-lightbox hidden" role="dialog" aria-modal="true" aria-label="Product photo preview">
+  <div class="jeans-lightbox-box">
+    <img id="jeansLightboxImg" alt="SAYRA BRAND Jeans photo">
+    <div class="jeans-lightbox-bar">
+      <strong id="jeansLightboxCaption" style="font-size:14px">SAYRA BRAND</strong>
+      <button type="button" class="btn btn-ghost jeans-btn-sm" style="flex:none" id="jeansLightboxClose">Close ✕</button>
+    </div>
+  </div>
 </div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
@@ -1871,6 +2627,7 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
 }
+window.showSayraToast = showToast;
 function appendEmptyRow(tbody, cols, message) {
   const tr = document.createElement('tr');
   tr.className = 'empty-row';
@@ -2298,6 +3055,8 @@ $('exportReturns').onclick = () => {
 
 // 7. Full Backup & Backward-Compatible Restore
 $('backupBtn').onclick = () => {
+  let jeansShowcase = [];
+  try { jeansShowcase = JSON.parse(localStorage.getItem('sayraBrandJeansShowcase') || '[]'); } catch (_) {}
   const payload = {
     version: 2,
     exportedAt: new Date().toISOString(),
@@ -2305,7 +3064,8 @@ $('backupBtn').onclick = () => {
     returnRto: returnRecords,
     expenses: expenseEntries,
     checklist: checklistData,
-    settlements: settlements
+    settlements: settlements,
+    jeansShowcase: jeansShowcase
   };
   download('sayra-business-hub-backup.json', JSON.stringify(payload, null, 2), 'application/json');
 };
@@ -2335,6 +3095,12 @@ $('backupFile').onchange = async e => {
           localStorage.setItem('sayraBrandChecklist', JSON.stringify(checklistData));
         }
         if (Array.isArray(data.settlements)) { settlements = data.settlements; saveSettlements(); }
+        if (Array.isArray(data.jeansShowcase)) {
+          localStorage.setItem('sayraBrandJeansShowcase', JSON.stringify(data.jeansShowcase));
+          if (window.__sayraJeansShowcase && window.__sayraJeansShowcase.reload) {
+            await window.__sayraJeansShowcase.reload();
+          }
+        }
         render();
         renderReturnRecords();
         renderExpenses();
@@ -2418,7 +3184,7 @@ if ('IntersectionObserver' in window) {
       quickLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
     });
   }, { rootMargin: '-22% 0px -62% 0px' });
-  ['returnsTracker', 'daily', 'calculator', 'expenses', 'checklist', 'settlements', 'backup'].forEach(id => {
+  ['returnsTracker', 'labelCropper', 'jeansShowcase', 'daily', 'calculator', 'expenses', 'checklist', 'settlements', 'backup'].forEach(id => {
     const el = $(id);
     if (el) obs.observe(el);
   });
@@ -2450,5 +3216,7 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
 }
 </script>
+<script src="./label-cropper.js"></script>
+<script src="./jeans-showcase.js"></script>
 </body>
 </html>
