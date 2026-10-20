@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SAYRA BRAND">
+  <rect width="512" height="512" rx="116" fill="#CBB3E8"/>
+  <rect x="36" y="36" width="440" height="440" rx="92" fill="#E43234"/>
+  <circle cx="394" cy="118" r="44" fill="#D4FF3F"/>
+  <path d="M256 118c10 74 64 128 138 138-74 10-128 64-138 138-10-74-64-128-138-138 74-10 128-64 138-138Z" fill="#FFFFFF"/>
+  <circle cx="256" cy="256" r="24" fill="#1C1226"/>
+</svg>

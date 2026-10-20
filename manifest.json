@@ -1,0 +1,18 @@
+{
+  "name": "SAYRA BRAND — Business Workspace",
+  "short_name": "SAYRA BRAND",
+  "description": "SAYRA BRAND — a bold daily business diary, return/RTO tracker, expense log, settlement tracker and selling price calculator.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#CBB3E8",
+  "theme_color": "#E43234",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
