@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sayra-brand-hub-v2';
+const CACHE_NAME = 'sayra-brand-hub-v3';
 const ASSETS = ['./', './index.html', './manifest.json', './icon.svg'];
 
 self.addEventListener('install', event => {
