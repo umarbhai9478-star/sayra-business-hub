@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SAYRA BRAND 3D Emblem">
+  <defs>
+    <linearGradient id="lavBase" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E4D4F7"/>
+      <stop offset="55%" stop-color="#CBB3E8"/>
+      <stop offset="100%" stop-color="#9E7EC7"/>
+    </linearGradient>
+    <linearGradient id="tomJewel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF595B"/>
+      <stop offset="48%" stop-color="#E43234"/>
+      <stop offset="100%" stop-color="#9E1416"/>
+    </linearGradient>
+    <linearGradient id="chartOrb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EEFF9E"/>
+      <stop offset="55%" stop-color="#D4FF3F"/>
+      <stop offset="100%" stop-color="#8FAD0A"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#lavBase)"/>
+  <rect x="44" y="58" width="424" height="420" rx="94" fill="#1C1226" opacity="0.28"/>
+  <rect x="44" y="40" width="424" height="420" rx="94" fill="url(#tomJewel)"/>
+  <rect x="52" y="48" width="408" height="404" rx="86" fill="none" stroke="#FFFFFF" stroke-opacity="0.45" stroke-width="5"/>
+  <circle cx="390" cy="122" r="46" fill="#1C1226" opacity="0.22"/>
+  <circle cx="386" cy="114" r="44" fill="url(#chartOrb)"/>
+  <path d="M256 124c11 74 65 128 139 139-74 11-128 65-139 139-11-74-65-128-139-139 74-11 128-65 139-139Z" fill="#1C1226" opacity="0.24"/>
+  <path d="M256 112c11 74 65 128 139 139-74 11-128 65-139 139-11-74-65-128-139-139 74-11 128-65 139-139Z" fill="#FFFFFF"/>
+  <circle cx="256" cy="251" r="24" fill="#D4FF3F"/>
+</svg>
